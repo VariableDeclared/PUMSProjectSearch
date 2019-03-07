@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pete.pumprojectsearch.session;
+package com.pete.pumsprojectsearch.session;
 
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -12,22 +12,16 @@ import javax.enterprise.context.Dependent;
  *
  * @author UP732011 UP732011@myport.ac.uk
  */
-@Named(value = "createProjectController")
+@Named(value = "projectSearchController")
 @Dependent
-public class CreateProjectController
+public class ProjectSearchController
 {
 
     /**
-     * Creates a new instance of CreateProjectController
+     * Creates a new instance of SearchController
      */
-    public CreateProjectController()
+    public ProjectSearchController()
     {
-        
-       
-    }
-    
-    public String prepareProjectsHome() {
-        return "/";
     }
     
 }

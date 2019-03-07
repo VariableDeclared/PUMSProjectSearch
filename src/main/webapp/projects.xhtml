@@ -10,7 +10,13 @@
         <b:form>
             <b:commandButton action="#{homeController.prepareCreateProject}">Create Project</b:commandButton>
             <b:commandButton action="#{homeController.prepareProjectDetail}">Project Detail</b:commandButton>
+            <b:commandButton action="#{homeController.insertData}">Insert data</b:commandButton>
         </b:form>
+        
+        <b:dataTable value="#{homeController.allProjects}" var="project">
+            <b:dataTableColumn value="#{project.projectName}" />
+        
+        </b:dataTable>
     </h:body>
 </html>
 
