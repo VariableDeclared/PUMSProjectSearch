@@ -65,14 +65,14 @@ public class HomeController implements Serializable
         return "projects/Create";
     }
     
-    public String prepareProjectDetail() {
-        return "projects/detail";
+    public String prepareProjectDetail(int projectId) {
+        return String.format("projects/%s", projectId);
     }
     
     public String prepareProjectSearch() {
         /* 
          This should be handled by the page...
         */
-        return "/";
+       return "/";
     }
 }

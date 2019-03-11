@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -10,13 +11,17 @@
         <b:form>
             <b:commandButton action="#{homeController.prepareCreateProject}">Create Project</b:commandButton>
             <b:commandButton action="#{homeController.prepareProjectDetail}">Project Detail</b:commandButton>
-            <b:commandButton action="#{homeController.insertData}">Insert data</b:commandButton>
+            <b:commandButton action="#{homeController.insertData}" look="danger" >Insert data</b:commandButton>
+            <b:dataTable value="#{homeController.allProjects}" var="project">
+                <b:dataTableColumn value="#{project.projectName}" />
+                <b:dataTableColumn label="View project">
+                    <b:commandButton onselect="" value="View Project" look="info" action="#{homeController.prepareProjectDetail(project.getId())}" />
+                </b:dataTableColumn>
+
+            </b:dataTable>
         </b:form>
         
-        <b:dataTable value="#{homeController.allProjects}" var="project">
-            <b:dataTableColumn value="#{project.projectName}" />
-        
-        </b:dataTable>
+       
     </h:body>
 </html>
 
