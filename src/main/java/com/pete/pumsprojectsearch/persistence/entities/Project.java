@@ -34,6 +34,7 @@ public class Project implements Serializable {
     ) {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
+        this.projectOwner = projectOwner;
     }
     
     public User getProjectOwner() {

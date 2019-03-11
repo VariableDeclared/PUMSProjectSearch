@@ -34,7 +34,7 @@ public class DataInsert {
                 pl.getPasswordHash()
             );
             userEjb.create(user);
-            System.out.println("Persisted.");
+            System.out.println("Persisted. User...");
             users.add(user);
         }
         final ArrayList<Project> projects = new ArrayList<Project>();
@@ -51,7 +51,7 @@ public class DataInsert {
                     );
                 projects.add(proj);
                 projectEjb.create(proj);
-                System.out.println("Inserting data");
+                System.out.println("Inserting data... with " + user.getFirstName());
         }
         
         
