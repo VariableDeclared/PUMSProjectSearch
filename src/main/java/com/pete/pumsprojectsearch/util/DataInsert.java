@@ -6,7 +6,7 @@
 package com.pete.pumsprojectsearch.util;
 
 import com.pete.pumsprojectsearch.persistence.entities.Project;
-import com.pete.pumsprojectsearch.persistence.entities.User;
+import com.pete.pumsprojectsearch.persistence.entities.PUMSUser;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
 import com.pete.pumsprojectsearch.persistence.facades.UserFacade;
 import com.pete.pumsprojectsearch.util.objects.PasswordHashPayload;
@@ -24,9 +24,9 @@ public class DataInsert {
 
         PasswordHashPayload pl = AccountUtils.hashPassword("hello123", null);
         String [] names = { "Peter", "Joe", "Margaret", "Thresa", "Patrick" };
-        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<PUMSUser> users = new ArrayList<PUMSUser>();
         for (int i = 0; i < names.length; i++) {
-            User user = new User(
+            PUMSUser user = new PUMSUser(
                 names[i],
                 "De Sousa",
                 String.format("%s@live.com", names[i]),
@@ -40,10 +40,10 @@ public class DataInsert {
         final ArrayList<Project> projects = new ArrayList<Project>();
         
         
-        Iterator<User> it = users.iterator();
+        Iterator<PUMSUser> it = users.iterator();
         
         while(it.hasNext()) {
-            User user = it.next();
+            PUMSUser user = it.next();
             Project proj = new Project(
                      String.format("PUMS_Project %s", user.getFirstName()),
                      "It's about searching and searching well!",

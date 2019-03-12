@@ -16,15 +16,15 @@ import javax.persistence.Id;
  * @author Peted
  */
 @Entity
-public class User implements Serializable {
+public class PUMSUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName, familyName, email, randomSalt, passwordHash;
-    public User() { }
-    public User(String firstName, String familyName, String email, String randomSalt, String passwordHash) {
+    public PUMSUser() { }
+    public PUMSUser(String firstName, String familyName, String email, String randomSalt, String passwordHash) {
         this.firstName = firstName;
         this.familyName = familyName;
         this.email = email;
@@ -90,10 +90,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof PUMSUser)) {
             return false;
         }
-        User other = (User) object;
+        PUMSUser other = (PUMSUser) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

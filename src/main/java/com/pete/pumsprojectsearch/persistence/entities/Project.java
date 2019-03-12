@@ -25,23 +25,23 @@ public class Project implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @OneToOne
-    private User projectOwner;
+    private PUMSUser projectOwner;
 
     public Project(
             String projectName,
             String projectDescription, 
-            User projectOwner
+            PUMSUser projectOwner
     ) {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectOwner = projectOwner;
     }
     
-    public User getProjectOwner() {
+    public PUMSUser getProjectOwner() {
         return projectOwner;
     }
 
-    public void setProjectOwner(User projectOwner) {
+    public void setProjectOwner(PUMSUser projectOwner) {
         this.projectOwner = projectOwner;
     }
     private String projectName, projectDescription;

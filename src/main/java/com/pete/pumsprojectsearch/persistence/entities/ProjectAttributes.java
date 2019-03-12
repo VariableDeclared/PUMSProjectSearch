@@ -30,7 +30,7 @@ public class ProjectAttributes implements Serializable {
     
     // ForeignKey
     @OneToOne
-    private User projectOwner;
+    private PUMSUser projectOwner;
     // ForeignKey
     @OneToMany
     private List<ProjectHistory> history;
