@@ -14,6 +14,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 
 /**
  *
@@ -35,9 +36,12 @@ public class HomeController implements Serializable
     }
 
     @EJB
-    ProjectFacade projectEjb;
+    private ProjectFacade projectEjb;
     @EJB
-    UserFacade userEjb;
+    private UserFacade userEjb;
+    
+    @Inject
+    private ProjectDetailController projectDetailController;
     /**
      * Creates a new instance of HomeController
      */
@@ -66,7 +70,9 @@ public class HomeController implements Serializable
     }
     
     public String prepareProjectDetail(int projectId) {
-        return String.format("projects/%s", projectId);
+        return projectDetailController.prepareProjectDetail(
+                projectEjb.find(projectId)
+        );
     }
     
     public String prepareProjectSearch() {

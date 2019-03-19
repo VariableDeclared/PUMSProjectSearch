@@ -7,7 +7,7 @@ package com.pete.pumsprojectsearch.session;
 
 import com.pete.pumsprojectsearch.persistence.entities.Project;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
-import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 
@@ -20,9 +20,10 @@ import javax.enterprise.context.Dependent;
 @Dependent
 public class ProjectDetailController
 {
-
-    List<Project> projects;
-    ProjectFacade projectEjb;
+    @EJB
+    private ProjectFacade projectEjb;
+    
+    private Project selectedProject;
     /**
      * Creates a new instance of ProjectDetail
      */
@@ -31,12 +32,10 @@ public class ProjectDetailController
 
     }
     
-    public String prepareProjectsHome() {
-        return "/";
+    public String prepareProjectDetail(Project proj) {
+        this.selectedProject = proj;
+        return "/projects/detial.xhtml";
     }
     
-    public String prepareEditProject() {
-        return "projects/edit";
-    }
-    
+
 }
