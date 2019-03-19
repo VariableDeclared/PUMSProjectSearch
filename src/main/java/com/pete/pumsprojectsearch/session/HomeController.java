@@ -66,7 +66,7 @@ public class HomeController implements Serializable
     }
     
     public String prepareProjectDetail(int projectId) {
-        return String.format("projects/%s", projectId);
+        return String.format("views/projects/%s", projectId);
     }
     
     public String prepareProjectSearch() {

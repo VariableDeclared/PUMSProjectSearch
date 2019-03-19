@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pete.pumsprojectsearch.views;
+package com.pete.pumsprojectsearch.mvc;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -14,5 +14,6 @@ import javax.ws.rs.core.Application;
  */
 @ApplicationPath("views")
 public class MVCConfiguration extends Application {
+    
     
 }

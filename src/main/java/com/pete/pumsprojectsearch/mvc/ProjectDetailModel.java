@@ -3,26 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.pete.pumsprojectsearch.models;
+package com.pete.pumsprojectsearch.mvc;
 
 import com.pete.pumsprojectsearch.persistence.entities.Project;
+import com.pete.pumsprojectsearch.session.ProjectDetailService;
 import javax.enterprise.inject.Model;
+import javax.inject.Inject;
 
 /**
  *
  * @author Peted
  */
-@Model 
+@Model
 public class ProjectDetailModel {
+    @Inject
+    ProjectDetailService clr;
     
-    
-    private Project project;
-
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
+    public Project getProject(int id) {
+        return clr.getProjectDetail(id);
     }
 }
