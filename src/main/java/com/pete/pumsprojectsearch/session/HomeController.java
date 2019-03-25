@@ -41,7 +41,7 @@ public class HomeController implements Serializable
     private UserFacade userEjb;
     
     @Inject
-    private ProjectDetailController projectDetailController;
+    transient private ProjectDetailController projectDetailController;
     /**
      * Creates a new instance of HomeController
      */
