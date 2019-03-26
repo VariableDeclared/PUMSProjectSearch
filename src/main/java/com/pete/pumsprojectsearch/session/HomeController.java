@@ -69,7 +69,7 @@ public class HomeController implements Serializable
         return "projects/Create";
     }
     
-    public String prepareProjectDetail(int projectId) {
+    public String prepareProjectDetail(long projectId) {
         return projectDetailController.prepareProjectDetail(
                 projectEjb.find(projectId)
         );
@@ -79,6 +79,6 @@ public class HomeController implements Serializable
         /* 
          This should be handled by the page...
         */
-       return "/";
+       return "/projects.xhtml";
     }
 }

@@ -39,6 +39,10 @@ public class PUMSUser implements Serializable {
     public void setRandomSalt(String randomSalt) {
         this.randomSalt = randomSalt;
     }
+    
+    public String getName() {
+        return String.format("%s %s", this.firstName, this.familyName);
+    }
 
     public String getPasswordHash() {
         return passwordHash;

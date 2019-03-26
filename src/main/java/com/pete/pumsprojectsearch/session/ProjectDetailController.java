@@ -7,9 +7,10 @@ package com.pete.pumsprojectsearch.session;
 
 import com.pete.pumsprojectsearch.persistence.entities.Project;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
+import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 
 
 /**
@@ -17,13 +18,21 @@ import javax.enterprise.context.Dependent;
  * @author UP732011 UP732011@myport.ac.uk
  */
 @Named(value = "projectDetailController")
-@Dependent
+@RequestScoped
 public class ProjectDetailController
 {
     @EJB
     private ProjectFacade projectEjb;
     
     private Project selectedProject;
+
+    public Project getSelectedProject() {
+        return selectedProject;
+    }
+
+    public void setSelectedProject(Project selectedProject) {
+        this.selectedProject = selectedProject;
+    }
     /**
      * Creates a new instance of ProjectDetail
      */
@@ -34,7 +43,7 @@ public class ProjectDetailController
     
     public String prepareProjectDetail(Project proj) {
         this.selectedProject = proj;
-        return "/projects/detial.xhtml";
+        return "/projects/detail.xhtml";
     }
     
 
