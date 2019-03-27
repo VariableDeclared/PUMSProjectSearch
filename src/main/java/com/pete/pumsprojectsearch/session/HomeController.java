@@ -69,7 +69,7 @@ public class HomeController implements Serializable
     }
     public String prepareCreateProject() {
 
-        return "projects/Create";
+        return "projects/create.xhtml";
     }
     
     public String prepareProjectDetail(long projectId) {

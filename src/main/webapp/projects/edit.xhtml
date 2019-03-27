@@ -14,7 +14,7 @@
             <h2>EDIT: #{projectEditController.selectedProject.projectName}</h2>
             <b:form>
                 <b:label text="Project Title"/>
-                <b:inputText placeholder="EDIT: #{projectEditController.selectedProject.projectName}"></b:inputText>
+                <b:inputText placeholder="EDIT: #{projectEditController.selectedProject.projectName}" value="#{projectEditController.selectedProject.projectName}"></b:inputText>
                 <b:label text="Project Owner (id)"/> 
                 <b:selectMultiMenu value="#{projectEditController.projectOwners}">
                     <f:selectItems value="#{projectEditController.users}" var="owner" itemLabel="#{owner.name}" itemValue="#{owner.idString}"/>
@@ -22,14 +22,30 @@
                 <b:label text="Project Description"/>
                 <b:inputTextarea placeholder="#{projectEditController.selectedProject.projectDescription}"></b:inputTextarea> 
                 
-        <b:accordion>
-            <b:panel title="Attribute 1"> Attributes </b:panel>
-            <b:panel title="Attribute 2"> Attributes </b:panel>
-        </b:accordion>
-  
+                
+
                 <b:commandButton action="#{homeController.prepareProjectSearch}">Projects Home</b:commandButton>
                 <b:commandButton action="#{projectEditController.saveChanges}">Save changes</b:commandButton>
             </b:form>
+            <b:accordion>
+                    <b:panel title="Attributes">
+                        <ui:repeat value="#{projectEditController.attributes}" var="attribute">
+                        <!--TODO: Add attribute.type -->
+                        <b:panel><label>Link: </label><a href="#{attribute.httpLink}">#{attribute.httpLink}</a></b:panel>
+                        <b:form>
+                        <b:panel><b:commandButton action="#{projectEditController.removeAttribute(attribute.id)}">Remove attribute</b:commandButton></b:panel>
+                        </b:form>
+                    </ui:repeat>
+                        <b:panel>
+                            <b:form>
+                                <b:label text="Add Attribute"/>
+                                <b:inputText placeholder="Enter link" value="#{projectEditController.attributeString}"></b:inputText>
+                                <b:commandButton action="#{projectEditController.addAttribute}">Add Attribute</b:commandButton>  
+                            </b:form>
+
+                        </b:panel>
+                    </b:panel>
+                </b:accordion>
         </b:container>
         
     </h:body>

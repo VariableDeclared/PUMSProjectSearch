@@ -13,8 +13,10 @@
             
 
         <h1>#{projectDetailController.selectedProject.projectName}</h1>
-        <h2>Project Owner: #{projectDetailController.projectOwnerName}</h2>
-        
+        <h2>Project Owners: </h2>
+        <b:dataTable value="#{projectDetailController.projectOwners}" var="user">
+            <b:dataTableColumn value="#{user.name}"/> 
+        </b:dataTable>
         <h3>Project Description</h3>
         <span>#{projectDetailController.selectedProject.projectDescription}</span>
         <h3>Project Attributes</h3>

@@ -14,7 +14,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 
 
 /**
@@ -27,7 +26,8 @@ public class ProjectDetailController implements Serializable
 {
     @EJB
     private transient ProjectFacade projectEjb;
-    private transient EntityManager em;
+
+    
     private Project selectedProject;
 
     
@@ -38,12 +38,13 @@ public class ProjectDetailController implements Serializable
         return selectedProject;
     }
     
-    public String getProjectOwnerName() {
-        ArrayList<PUMSUser> usrs = this.selectedProject.getProjectOwners();
-        PUMSUser usr = usrs.get(0);
-        return String.format("%s %s", usr.getFamilyName(), usr.getFirstName());
+    public ArrayList<PUMSUser> getProjectOwners() {
+     
+        
+        return this.selectedProject.getProjectOwners();
         
     }
+    
 
     public void setSelectedProject(Project selectedProject) {
         this.selectedProject = selectedProject;
