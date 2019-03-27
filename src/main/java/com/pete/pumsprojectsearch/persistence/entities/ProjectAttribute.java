@@ -5,14 +5,11 @@
  */
 package com.pete.pumsprojectsearch.persistence.entities;
 
-import com.pete.pumsprojectsearch.persistence.entities.enumerations.ProjectChangeType;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 
@@ -21,8 +18,11 @@ import javax.persistence.OneToOne;
  * @author Peted
  */
 @Entity
-public class ProjectAttributes implements Serializable {
-    public ProjectAttributes () {}
+public class ProjectAttribute implements Serializable {
+    public ProjectAttribute () {}
+    public ProjectAttribute (String link) {
+        this.httpLink = link;
+    }
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -32,11 +32,19 @@ public class ProjectAttributes implements Serializable {
     @OneToOne
     private PUMSUser projectOwner;
     // ForeignKey
-    @OneToMany
-    private List<ProjectHistory> history;
-    private ProjectChangeType changes;
-    @OneToMany
-    private List<Attachment> attachments;
+    
+    private String httpLink;
+    
+    
+
+    public String getHttpLink() {
+        return httpLink;
+    }
+
+    public void setHttpLink(String httpLink) {
+        this.httpLink = httpLink;
+    }
+
 
     public Long getId() {
         return id;
@@ -56,10 +64,10 @@ public class ProjectAttributes implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProjectAttributes)) {
+        if (!(object instanceof ProjectAttribute)) {
             return false;
         }
-        ProjectAttributes other = (ProjectAttributes) object;
+        ProjectAttribute other = (ProjectAttribute) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

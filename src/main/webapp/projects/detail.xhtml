@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
 >
     <h:head>
         <title>Project: #{projectDetailController.selectedProject.projectName}</title>
@@ -12,20 +13,25 @@
             
 
         <h1>#{projectDetailController.selectedProject.projectName}</h1>
-        <h2>#{projectDetailController.selectedProject.projectOwner.name}</h2>
+        <h2>Project Owner: #{projectDetailController.projectOwnerName}</h2>
         
         <h3>Project Description</h3>
         <span>#{projectDetailController.selectedProject.projectDescription}</span>
         <h3>Project Attributes</h3>
         <b:accordion>
-            <b:panel title="Attribute 1"> Attributes </b:panel>
-            <b:panel title="Attribute 2"> Attributes </b:panel>
+            <b:panel title="Attributes">
+            <ui:repeat value="#{projectDetailController.selectedProject.attributes}" var="attribute">
+                <!--TODO: Add attribute.type -->
+                <b:panel><label>Link: </label><a href="#{attribute.httpLink}">#{attribute.httpLink}</a></b:panel>
+            </ui:repeat>
+            </b:panel>
         </b:accordion>
         </b:container>
         
         <b:container>
             <b:form>
                 <b:commandButton action="#{homeController.prepareProjectSearch}">Projects Home</b:commandButton>
+                <b:commandButton action="#{projectDetailController.prepareEditProject}">Edit this project</b:commandButton>
             </b:form>
         </b:container>
         

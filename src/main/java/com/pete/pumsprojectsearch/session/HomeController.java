@@ -6,6 +6,7 @@
 package com.pete.pumsprojectsearch.session;
 
 import com.pete.pumsprojectsearch.persistence.entities.Project;
+import com.pete.pumsprojectsearch.persistence.facades.ProjectAttributeFacade;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
 import com.pete.pumsprojectsearch.persistence.facades.UserFacade;
 import com.pete.pumsprojectsearch.util.DataInsert;
@@ -39,6 +40,8 @@ public class HomeController implements Serializable
     private ProjectFacade projectEjb;
     @EJB
     private UserFacade userEjb;
+    @EJB
+    private ProjectAttributeFacade attributeEjb;
     
     @Inject
     transient private ProjectDetailController projectDetailController;
@@ -57,7 +60,7 @@ public class HomeController implements Serializable
         System.out.println("Insert data called");
         try {
             
-            DataInsert.insertData(projectEjb, userEjb);
+            DataInsert.insertData(projectEjb, userEjb, attributeEjb);
             System.out.println("Inserted data");
         } catch (Exception ex) {
             System.out.println(ex.toString());

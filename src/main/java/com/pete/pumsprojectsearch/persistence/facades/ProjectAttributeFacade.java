@@ -5,7 +5,7 @@
  */
 package com.pete.pumsprojectsearch.persistence.facades;
 
-import com.pete.pumsprojectsearch.persistence.entities.ProjectAttributes;
+import com.pete.pumsprojectsearch.persistence.entities.ProjectAttribute;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author Peted
  */
 @Stateless
-public class ProjectAttributesFacade extends AbstractFacade<ProjectAttributes> {
+public class ProjectAttributeFacade extends AbstractFacade<ProjectAttribute> {
 
     @PersistenceContext(unitName = "com.pete_PUMProjectSearch_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class ProjectAttributesFacade extends AbstractFacade<ProjectAttributes> {
         return em;
     }
 
-    public ProjectAttributesFacade() {
-        super(ProjectAttributes.class);
+    public ProjectAttributeFacade() {
+        super(ProjectAttribute.class);
     }
     
 }

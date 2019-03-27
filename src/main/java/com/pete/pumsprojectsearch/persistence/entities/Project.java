@@ -6,11 +6,14 @@
 package com.pete.pumsprojectsearch.persistence.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -23,25 +26,45 @@ public class Project implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    @OneToOne
-    private PUMSUser projectOwner;
+    private Long id; 
+    
+    @OneToMany
+    private ArrayList<ProjectHistory> projectHistory;
+    
+    @ManyToMany(fetch=FetchType.EAGER)
+    private ArrayList<PUMSUser> projectOwner;
+  
+    @OneToMany(fetch=FetchType.EAGER)
+    private ArrayList<ProjectAttribute> attributes;
 
     public Project(
             String projectName,
             String projectDescription, 
-            PUMSUser projectOwner
+            ArrayList<PUMSUser> projectOwner,
+            ArrayList<ProjectAttribute> attributes
     ) {
         this.projectName = projectName;
         this.projectDescription = projectDescription;
         this.projectOwner = projectOwner;
+        this.attributes = attributes;
+    }
+
+    public ArrayList<ProjectAttribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(ArrayList<ProjectAttribute> attributes) {
+        this.attributes = attributes;
     }
     
-    public PUMSUser getProjectOwner() {
+    public ArrayList<PUMSUser> getProjectOwners() {
+        if (this.projectOwner == null) {
+            this.projectOwner = new ArrayList<>();
+        }
         return projectOwner;
     }
 
-    public void setProjectOwner(PUMSUser projectOwner) {
+    public void setProjectOwners(ArrayList<PUMSUser> projectOwner) {
         this.projectOwner = projectOwner;
     }
     private String projectName, projectDescription;

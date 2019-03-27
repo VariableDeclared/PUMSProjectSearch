@@ -5,6 +5,7 @@
  */
 package com.pete.pumsprojectsearch.persistence.entities;
 
+import com.pete.pumsprojectsearch.persistence.entities.enumerations.ProjectChangeType;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ public class ProjectHistory implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private ProjectChangeType projectChange;
     public Long getId() {
         return id;
     }

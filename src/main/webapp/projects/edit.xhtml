@@ -1,12 +1,37 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+          
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Project: #{projectEditController.selectedProject.projectName}</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <b:container>
+            <h2>EDIT: #{projectEditController.selectedProject.projectName}</h2>
+            <b:form>
+                <b:label text="Project Title"/>
+                <b:inputText placeholder="EDIT: #{projectEditController.selectedProject.projectName}"></b:inputText>
+                <b:label text="Project Owner (id)"/> 
+                <b:selectMultiMenu value="#{projectEditController.projectOwners}">
+                    <f:selectItems value="#{projectEditController.users}" var="owner" itemLabel="#{owner.name}" itemValue="#{owner.idString}"/>
+                </b:selectMultiMenu>
+                <b:label text="Project Description"/>
+                <b:inputTextarea placeholder="#{projectEditController.selectedProject.projectDescription}"></b:inputTextarea> 
+                
+        <b:accordion>
+            <b:panel title="Attribute 1"> Attributes </b:panel>
+            <b:panel title="Attribute 2"> Attributes </b:panel>
+        </b:accordion>
+  
+                <b:commandButton action="#{homeController.prepareProjectSearch}">Projects Home</b:commandButton>
+                <b:commandButton action="#{projectEditController.saveChanges}">Save changes</b:commandButton>
+            </b:form>
+        </b:container>
+        
     </h:body>
 </html>
 

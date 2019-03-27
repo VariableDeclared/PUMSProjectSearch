@@ -83,7 +83,10 @@ public class PUMSUser implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-
+    
+    public String getIdString() {
+        return this.id.toString();
+    }
     @Override
     public int hashCode() {
         int hash = 0;
