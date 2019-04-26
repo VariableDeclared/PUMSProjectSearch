@@ -67,7 +67,7 @@ public class HomeController implements Serializable
         this.loggedInUser = loggedInUser;
     }
     
-    public void removeFavourite(int projectId) {
+    public void removeFavourite(long projectId) {
         PUMSUser user = LoginUtils.getUser();
         
         user.removeSavedProject(this.projectEjb.find(projectId));
