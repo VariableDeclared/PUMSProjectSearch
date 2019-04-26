@@ -18,9 +18,9 @@ import static java.time.Clock.fixed;
  */
 public class AccountUtils {
     
-    static String FIXED_SALT = "FWJ25%^%^&£^%??\\.¬#";
+    public static final String FIXED_SALT = "FWJ25%^%^&£^%??\\.¬#";
     // Hashing from: https://howtodoinjava.com/security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
-    private static String getSecurePassword(
+    public static String getSecurePassword(
             String passwordToHash,
             byte[] salt,
             String fixedHash
@@ -77,19 +77,12 @@ public class AccountUtils {
             salt = getSalt();
         }
          
-        String securePassword = getSecurePassword(
-                passwordToHash,
-                salt,
-                AccountUtils.FIXED_SALT
-        );
-        System.out.println(securePassword);
          
         String regeneratedPassowrdToVerify = getSecurePassword(
                 passwordToHash,
                 salt, 
                 AccountUtils.FIXED_SALT
         );
-        System.out.println(regeneratedPassowrdToVerify); 
         return new PasswordHashPayload(
                 regeneratedPassowrdToVerify,
                 new String(salt),

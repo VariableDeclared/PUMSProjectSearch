@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -30,6 +31,9 @@ public class Project implements Serializable {
     
     @OneToMany
     private ArrayList<ProjectHistory> projectHistory;
+    
+    @NotNull
+    private String projectName, projectDescription;
     
     @ManyToMany(fetch=FetchType.EAGER)
     private ArrayList<PUMSUser> projectOwner;
@@ -67,7 +71,8 @@ public class Project implements Serializable {
     public void setProjectOwners(ArrayList<PUMSUser> projectOwner) {
         this.projectOwner = projectOwner;
     }
-    private String projectName, projectDescription;
+    
+
     
 
     public String getProjectName() {

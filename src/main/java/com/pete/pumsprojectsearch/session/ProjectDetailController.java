@@ -8,6 +8,7 @@ package com.pete.pumsprojectsearch.session;
 import com.pete.pumsprojectsearch.persistence.entities.PUMSUser;
 import com.pete.pumsprojectsearch.persistence.entities.Project;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
+import com.pete.pumsprojectsearch.util.LoginUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.ejb.EJB;
@@ -38,6 +39,19 @@ public class ProjectDetailController implements Serializable
         return selectedProject;
     }
     
+    public boolean isOwner() {
+        if(!LoginUtils.checkLogin())
+            return false;
+        PUMSUser user = (PUMSUser) LoginUtils.getSession().getAttribute(
+                "currentUser"
+        );
+        
+        System.out.println("OWNER: " + user.getEmail());
+        ArrayList<PUMSUser> owners =  this.selectedProject.getProjectOwners();
+       
+        return owners.contains(user);
+    }
+    
     public ArrayList<PUMSUser> getProjectOwners() {
      
         
@@ -45,7 +59,13 @@ public class ProjectDetailController implements Serializable
         
     }
     
-
+    public String delete() {
+        if (this.isOwner()) {
+            this.projectEjb.remove(this.selectedProject);
+        }
+        
+        return "/projects.xhtml";
+    }
     public void setSelectedProject(Project selectedProject) {
         this.selectedProject = selectedProject;
     }

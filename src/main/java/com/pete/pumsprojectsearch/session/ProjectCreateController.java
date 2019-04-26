@@ -10,17 +10,19 @@ import com.pete.pumsprojectsearch.persistence.entities.Project;
 import com.pete.pumsprojectsearch.persistence.entities.ProjectAttribute;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectAttributeFacade;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
+import com.pete.pumsprojectsearch.util.LoginUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author UP732011 UP732011@myport.ac.uk
+ * @author UP73import javax.validation.constraints.NotNull;
+2011 UP732011@myport.ac.uk
  */
 @Named(value = "projectCreateController")
 @SessionScoped
@@ -38,6 +40,8 @@ public class ProjectCreateController implements Serializable
     private ProjectEditController projectEditController;
     
     private Project project;
+    @NotNull
+    private String projectTitle, projectDescription;
     
     private ArrayList<PUMSUser> projectOwners;
 
@@ -48,11 +52,13 @@ public class ProjectCreateController implements Serializable
     public void setProjectOwners(String commaSeparatedIds) {
         if (commaSeparatedIds.isEmpty()) 
             return;
-        
-        ArrayList<PUMSUser> users = 
-                projectEditController.commaIdsToArrayList(commaSeparatedIds);
-        System.out.println("SETTING PROJECT OWNERS: "+ users.toString());
-        
+//        PUMSUser currentUser = (PUMSUser) LoginUtils.getSession().getAttribute(
+//                "currentUser"
+//        );
+//        ArrayList<PUMSUser> users = new ArrayList<>();
+//        users.add(currentUser);
+        ArrayList<PUMSUser> users = projectEditController.commaIdsToArrayList(commaSeparatedIds);
+
         this.project.setProjectOwners(users);
     }
 
@@ -80,7 +86,7 @@ public class ProjectCreateController implements Serializable
     public Project getSelectedProject() {
         return selectedProject;
     }
-    private String projectTitle, projectDescription;
+
 
 
     public String getProjectTitle() {

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <b:form>
+            <b:label text="Email:"/>
+            <b:inputText placeholder="Email" value="#{loginController.email}"></b:inputText>
+            <b:label text="Password:"/>
+            <b:inputText placeholder="Password" value="#{loginController.password}"></b:inputText>
+            <b:commandButton action="#{loginController.performLogin}"  look="danger">User login</b:commandButton>
+            <b:commandButton action="#{loginController.prepareUserCreateAccount}"  look="danger">Create account</b:commandButton>
+            <!-- USER ACCOUNT CREATION! -->
+        </b:form>
+    </h:body>
+</html>
+

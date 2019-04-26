@@ -16,6 +16,7 @@
         <h2>Project Owners: </h2>
         <b:dataTable value="#{projectDetailController.projectOwners}" var="user">
             <b:dataTableColumn value="#{user.name}"/> 
+            <b:dataTableColumn value="#{user.email}" />
         </b:dataTable>
         <h3>Project Description</h3>
         <span>#{projectDetailController.selectedProject.projectDescription}</span>
@@ -33,7 +34,14 @@
         <b:container>
             <b:form>
                 <b:commandButton action="#{homeController.prepareProjectSearch}">Projects Home</b:commandButton>
-                <b:commandButton action="#{projectDetailController.prepareEditProject}">Edit this project</b:commandButton>
+
+                <ui:fragment rendered="#{projectDetailController.owner}">
+                   <b:commandButton action="#{projectDetailController.prepareEditProject}">Edit this project</b:commandButton>
+                   <b:commandButton 
+                    action="#{projectDetailController.delete}"
+                    look="danger">Delete this project</b:commandButton>
+                </ui:fragment>
+                
             </b:form>
         </b:container>
         

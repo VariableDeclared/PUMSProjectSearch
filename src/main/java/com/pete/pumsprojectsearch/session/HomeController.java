@@ -5,11 +5,13 @@
  */
 package com.pete.pumsprojectsearch.session;
 
+import com.pete.pumsprojectsearch.persistence.entities.PUMSUser;
 import com.pete.pumsprojectsearch.persistence.entities.Project;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectAttributeFacade;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
 import com.pete.pumsprojectsearch.persistence.facades.UserFacade;
 import com.pete.pumsprojectsearch.util.DataInsert;
+import com.pete.pumsprojectsearch.util.LoginUtils;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -43,6 +45,23 @@ public class HomeController implements Serializable
     @EJB
     private ProjectAttributeFacade attributeEjb;
     
+    private String loggedInUser;
+
+    public String getLoggedInUser() {
+        
+        Object user = LoginUtils.getSession().getAttribute("currentUser");
+        if (user != null)
+            loggedInUser = ((PUMSUser) user).getFirstName();
+        if (loggedInUser == null || loggedInUser.isEmpty()) {
+            return "Not logged in";
+        }
+        return loggedInUser;
+    }
+
+    public void setLoggedInUser(String loggedInUser) {
+        this.loggedInUser = loggedInUser;
+    }
+    
     @Inject
     transient private ProjectDetailController projectDetailController;
     /**
@@ -71,13 +90,16 @@ public class HomeController implements Serializable
 
         return "projects/create.xhtml";
     }
-    
+
     public String prepareProjectDetail(long projectId) {
         return projectDetailController.prepareProjectDetail(
                 projectEjb.find(projectId)
         );
     }
-    
+    public String prepareUserLogin() {
+        return "/login.xhtml";
+    }
+
     public String prepareProjectSearch() {
         /* 
          This should be handled by the page...
