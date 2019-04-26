@@ -37,7 +37,7 @@ public class LoginController {
     // "Insert Code > Add Business Method")
     private String email, password;
     
-    private static final EntityManagerFactory factory = 
+    public static final EntityManagerFactory factory = 
             Persistence.createEntityManagerFactory(
                     AppConstants.PERSISTENCE_UNIT
             );

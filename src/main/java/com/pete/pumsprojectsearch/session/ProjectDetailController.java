@@ -7,6 +7,7 @@ package com.pete.pumsprojectsearch.session;
 
 import com.pete.pumsprojectsearch.persistence.entities.PUMSUser;
 import com.pete.pumsprojectsearch.persistence.entities.Project;
+import com.pete.pumsprojectsearch.persistence.facades.PUMSUserFacade;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
 import com.pete.pumsprojectsearch.util.LoginUtils;
 import java.io.Serializable;
@@ -31,6 +32,8 @@ public class ProjectDetailController implements Serializable
 {
     @EJB
     private transient ProjectFacade projectEjb;
+    @EJB
+    private transient PUMSUserFacade userEjb;
 
     
     private Project selectedProject;
@@ -68,8 +71,22 @@ public class ProjectDetailController implements Serializable
             this.projectEjb.remove(this.selectedProject);
         }
         
-        return "/projects.xhtml";
+        return this.prepareProjectHome();
     }
+    
+    public String addToFavourites() {
+        PUMSUser user = LoginUtils.getUser();
+        
+        if (user == null)
+            return this.prepareProjectHome();
+        
+        user.addSavedProject(this.selectedProject);
+        
+        this.userEjb.edit(user);
+        
+        return this.prepareProjectHome();
+    }
+    
     public void setSelectedProject(Project selectedProject) {
         this.selectedProject = selectedProject;
     }
@@ -81,9 +98,15 @@ public class ProjectDetailController implements Serializable
         
     }
     
+    private String prepareProjectHome() {
+        return "/projects.xhtml";
+    }
+    private String prepareProjectDetail() {
+        return "/projects/detail.xhtml"; 
+    }
     public String prepareProjectDetail(Project proj) {
         this.selectedProject = proj;
-        return "/projects/detail.xhtml";
+        return this.prepareProjectDetail();
     }
     
     public String prepareEditProject() {

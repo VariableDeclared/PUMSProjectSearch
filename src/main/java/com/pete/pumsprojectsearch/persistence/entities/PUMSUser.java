@@ -6,15 +6,21 @@
 package com.pete.pumsprojectsearch.persistence.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Peted
- */
+ * @author Peter J De Sousa
+ * 
+ * This software is released solely for the assessment of myself
+ * any other unauthorized use goes beyond the intended purpose of
+ * this application and it's licensed use.
+*/
 @Entity
 public class PUMSUser implements Serializable {
 
@@ -22,14 +28,28 @@ public class PUMSUser implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull
     private String firstName, familyName, email, randomSalt, passwordHash;
+
+    private ArrayList<Project> savedProjects;
+
+
     public PUMSUser() { }
-    public PUMSUser(String firstName, String familyName, String email, String randomSalt, String passwordHash) {
+    public PUMSUser(
+            String firstName,
+            String familyName,
+            String email,
+            String randomSalt,
+            String passwordHash,
+            ArrayList<Project> savedProjects
+    ) {
         this.firstName = firstName;
         this.familyName = familyName;
         this.email = email;
         this.randomSalt = randomSalt;
         this.passwordHash = passwordHash;
+        this.savedProjects =  savedProjects == null ? 
+                new ArrayList<Project>() : savedProjects;
     }
 
     public String getRandomSalt() {
@@ -38,6 +58,24 @@ public class PUMSUser implements Serializable {
 
     public void setRandomSalt(String randomSalt) {
         this.randomSalt = randomSalt;
+    }
+    public ArrayList<Project> getSavedProjects() {
+    return savedProjects;
+    }
+
+    public void setSavedProjects(ArrayList<Project> savedProjects) {
+        this.savedProjects = savedProjects;
+    }
+    
+    public void addSavedProject(Project proj) {
+        if(this.savedProjects.contains(proj))
+            return;
+
+        this.savedProjects.add(proj);
+    }
+    
+    public void removeSavedProject(Project proj) {
+        this.savedProjects.remove(proj);
     }
     
     public String getName() {

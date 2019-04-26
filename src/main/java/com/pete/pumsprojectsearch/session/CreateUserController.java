@@ -14,7 +14,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -33,6 +37,14 @@ public class CreateUserController {
     private String firstName, familyName, email, password;
     @EJB
     private PUMSUserFacade ejb;
+    
+    EntityManager em = LoginController.factory.createEntityManager();
+    TypedQuery<PUMSUser> searchByEmail = em.createQuery(
+            "SELECT u FROM PUMSUser u WHERE u.email = :email", 
+            PUMSUser.class
+    );
+    
+    
     public String getFirstName() {
         return firstName;
     }
@@ -65,6 +77,18 @@ public class CreateUserController {
         this.password = password;
     }
     public String performCreateUser() {
+        
+        try {
+            this.searchByEmail.setParameter("email", this.email).getSingleResult();
+            FacesContext.getCurrentInstance().addMessage(
+                    null,
+                    new FacesMessage("Account exists with this email")
+                );
+            
+            return "/login.xhtml";
+        } catch (Exception ex) { } 
+        
+        
         PasswordHashPayload passwd = null;
         try {
             passwd = AccountUtils.hashPassword(
@@ -84,7 +108,8 @@ public class CreateUserController {
             this.familyName,
             this.email,
             passwd.getPasswordSalt(),
-            passwd.getPasswordHash()
+            passwd.getPasswordHash(),
+            null
         );
         
         ejb.create(newUser);

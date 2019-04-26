@@ -1,14 +1,27 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:b="http://bootsfaces.net/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+>
     <h:head>
         <title>Projects Homepage</title>
     </h:head>
     <h:body>
         <h1>Welcome: #{homeController.loggedInUser}</h1>
+        <b:panel>
+            <b:label text="Favourites"/>
+            <b:form>
+            <ui:repeat value="#{homeController.userFaviourites}" var="project">
+                <!--TODO: Add attribute.type -->
+                <b:panel>
+                    <b:commandButton look="info" action="#{homeController.prepareProjectDetail(project.getId())}">#{project.projectName}</b:commandButton>
+                    <b:commandButton look="info" action="#{homeController.removeFavourite(project.getId())}">Remove from favourites</b:commandButton>
+                </b:panel>
+            </ui:repeat>
+            </b:form>
+        </b:panel>
         <b:form>
             <b:commandButton action="#{homeController.prepareCreateProject}">Create Project</b:commandButton>
             <b:commandButton action="#{homeController.prepareProjectDetail}">Project Detail</b:commandButton>

@@ -15,6 +15,7 @@ import com.pete.pumsprojectsearch.util.LoginUtils;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -66,6 +67,14 @@ public class HomeController implements Serializable
         this.loggedInUser = loggedInUser;
     }
     
+    public void removeFavourite(int projectId) {
+        PUMSUser user = LoginUtils.getUser();
+        
+        user.removeSavedProject(this.projectEjb.find(projectId));
+        
+        this.userEjb.edit(user);
+    }
+    
     @Inject
     transient private ProjectDetailController projectDetailController;
     /**
@@ -99,6 +108,14 @@ public class HomeController implements Serializable
         return projectDetailController.prepareProjectDetail(
                 projectEjb.find(projectId)
         );
+    }
+    
+    public ArrayList<Project> getUserFaviourites() {
+        PUMSUser user = LoginUtils.getUser();
+        if (user == null) {
+            return new ArrayList<Project>();
+        }
+        return user.getSavedProjects();
     }
     public String prepareUserLogin() {
         return "/login.xhtml";

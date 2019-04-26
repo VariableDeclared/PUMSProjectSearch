@@ -39,6 +39,13 @@ public class LoginUtils {
         return true;
     }
     
+    public static PUMSUser getUser() {
+        if (LoginUtils.checkLogin()) {
+            return (PUMSUser) getSession().getAttribute("currentUser");
+        }
+        
+        return null;
+    }
     public static boolean checkLogin() {
         HttpSession session = getSession();
         return (

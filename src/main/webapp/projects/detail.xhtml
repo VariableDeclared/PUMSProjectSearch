@@ -23,6 +23,7 @@
         <h3>Project Attributes</h3>
         <b:accordion>
             <b:panel title="Attributes">
+                
             <ui:repeat value="#{projectDetailController.selectedProject.attributes}" var="attribute">
                 <!--TODO: Add attribute.type -->
                 <b:panel><label>Link: </label><a href="#{attribute.httpLink}">#{attribute.httpLink}</a></b:panel>
@@ -40,6 +41,10 @@
                    <b:commandButton 
                     action="#{projectDetailController.delete}"
                     look="danger">Delete this project</b:commandButton>
+                   <b:commandButton 
+                       action="#{projectDetailController.addToFavourites}"
+                    look="primary">Add to favourites</b:commandButton>
+                   
                 </ui:fragment>
                 
             </b:form>

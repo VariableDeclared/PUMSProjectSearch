@@ -39,7 +39,8 @@ public class DataInsert {
                 "De Sousa",
                 String.format("%s@live.com", names[i]),
                 pl.getPasswordSalt(),
-                pl.getPasswordHash()
+                pl.getPasswordHash(),
+                null
             );
             userEjb.create(user);
             System.out.println("Persisted. User...");
