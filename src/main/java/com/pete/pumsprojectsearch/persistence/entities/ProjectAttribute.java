@@ -15,8 +15,12 @@ import javax.persistence.OneToOne;
 
 /**
  *
- * @author Peted
- */
+ * @author Peter J De Sousa
+ * 
+ * This software is released solely for the assessment of myself
+ * any other unauthorized use goes beyond the intended purpose of
+ * this application and it's licensed use.
+*/
 @Entity
 public class ProjectAttribute implements Serializable {
     public ProjectAttribute () {}

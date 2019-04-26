@@ -21,8 +21,12 @@ import javax.inject.Inject;
 
 /**
  *
- * @author UP732011 UP732011@myport.ac.uk
- */
+ * @author Peter J De Sousa
+ * 
+ * This software is released solely for the assessment of myself
+ * any other unauthorized use goes beyond the intended purpose of
+ * this application and it's licensed use.
+*/
 @Named(value = "homeController")
 @SessionScoped
 public class HomeController implements Serializable

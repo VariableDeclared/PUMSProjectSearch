@@ -21,9 +21,12 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author UP73import javax.validation.constraints.NotNull;
-2011 UP732011@myport.ac.uk
- */
+ * @author Peter J De Sousa
+ * 
+ * This software is released solely for the assessment of myself
+ * any other unauthorized use goes beyond the intended purpose of
+ * this application and it's licensed use.
+*/
 @Named(value = "projectCreateController")
 @SessionScoped
 public class ProjectCreateController implements Serializable

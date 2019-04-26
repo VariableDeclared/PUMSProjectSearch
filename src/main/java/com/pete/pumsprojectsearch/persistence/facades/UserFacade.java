@@ -9,11 +9,14 @@ import com.pete.pumsprojectsearch.persistence.entities.PUMSUser;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 /**
  *
- * @author Peted
- */
+ * @author Peter J De Sousa
+ * 
+ * This software is released solely for the assessment of myself
+ * any other unauthorized use goes beyond the intended purpose of
+ * this application and it's licensed use.
+*/
 @Stateless
 public class UserFacade extends AbstractFacade<PUMSUser> {
 
