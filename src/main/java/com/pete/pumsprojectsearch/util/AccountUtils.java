@@ -24,6 +24,14 @@ public class AccountUtils {
     
     public static final String FIXED_SALT = "FWJ25%^%^&£^%??\\.¬#";
     // Hashing from: https://howtodoinjava.com/security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
+    /***
+     * Generates a password hash from the user's password, using a generated
+     * salt and a fixed salt.
+     * @param passwordToHash The password to hash
+     * @param salt User's salt
+     * @param fixedHash A fixed hash, usually application hash
+     * @return returns a hash represented in a String.
+     */
     public static String getSecurePassword(
             String passwordToHash,
             byte[] salt,
@@ -55,7 +63,12 @@ public class AccountUtils {
         return generatedPassword;
     }
      
-    //Add salt
+    /***
+     * Generates a salt.
+     * @return salt as a byte array
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchProviderException 
+     */
     private static byte[] getSalt() throws NoSuchAlgorithmException, NoSuchProviderException
     {
         //Always use a SecureRandom generator
@@ -68,6 +81,15 @@ public class AccountUtils {
         return salt;
     }
     
+    /***
+     * Gets a password hash without app salt, automatically
+     * fetched app salt from AccountUtils.
+     * @param passwordToHash The string to hash
+     * @param providedSalt The User's generated salt
+     * @return Returns a PasswordHashPayload containing the user's hash, salt and app salt
+     * @throws NoSuchAlgorithmException
+     * @throws NoSuchProviderException 
+     */
     public static PasswordHashPayload hashPassword(
             String passwordToHash, 
             String providedSalt
@@ -82,13 +104,13 @@ public class AccountUtils {
         }
          
          
-        String regeneratedPassowrdToVerify = getSecurePassword(
+        String hashedPassword = getSecurePassword(
                 passwordToHash,
                 salt, 
                 AccountUtils.FIXED_SALT
         );
         return new PasswordHashPayload(
-                regeneratedPassowrdToVerify,
+                hashedPassword,
                 new String(salt),
                 AccountUtils.FIXED_SALT
         );

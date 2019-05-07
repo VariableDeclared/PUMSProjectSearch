@@ -16,6 +16,13 @@ package com.pete.pumsprojectsearch.util.objects;
 public class PasswordHashPayload {
     private String passwordHash, passwordSalt, fixedSalt; 
 
+    /***
+     * POJO Object, takes passwordHash, passwordSalt, fixedSalt for single arg
+     * passing of information.
+     * @param passwordHash The user's pw hash
+     * @param passwordSalt The user's generated salt
+     * @param fixedSalt The salt for the application
+     */
     public PasswordHashPayload(String passwordHash, String passwordSalt, String fixedSalt) {
         this.passwordHash = passwordHash;
         this.passwordSalt = passwordSalt;

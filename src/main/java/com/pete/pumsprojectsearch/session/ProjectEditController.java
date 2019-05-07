@@ -11,6 +11,7 @@ import com.pete.pumsprojectsearch.persistence.entities.ProjectAttribute;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectAttributeFacade;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
 import com.pete.pumsprojectsearch.persistence.facades.UserFacade;
+import com.pete.pumsprojectsearch.util.LoginUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -45,6 +46,7 @@ public class ProjectEditController implements Serializable
     
     private String attributeString;
     private ArrayList<ProjectAttribute> attributes;
+
 
     public ArrayList<ProjectAttribute> getAttributes() {
         return attributes;
@@ -85,6 +87,11 @@ public class ProjectEditController implements Serializable
         
         return returnDefault();
     }
+    
+    /***
+     * Get projects owners in a string format
+     * @return The owners in string format
+     */
     public String getProjectOwners() {
         
         Iterator<PUMSUser> usrIt = this.selectedProject.getProjectOwners().iterator();
@@ -109,8 +116,20 @@ public class ProjectEditController implements Serializable
         return "/projects/edit.xhtml";
     }
     
+    /***
+     * Save project edits
+     * @return The path to go to after saving.
+     */
     public String saveChanges() {
-        this.projEjb.edit(this.selectedProject);
+        if (
+                this.selectedProject
+                .getProjectOwners()
+                .contains(
+                    LoginUtils.getUser()
+               )
+            ) {
+            this.projEjb.edit(this.selectedProject);
+        }
         return "/projects/detail.xhtml";
     }
     
@@ -124,6 +143,11 @@ public class ProjectEditController implements Serializable
         return this.returnDefault();
     }
     
+    /***
+     * Take a list of comma separated Ids and fetch users
+     * @param commaIds User ids in n1,n2,n3 format
+     * @return An array list of users.
+     */
     public ArrayList<PUMSUser> commaIdsToArrayList(String commaIds) {
         ArrayList<PUMSUser> users = new ArrayList<>();
         
@@ -132,6 +156,11 @@ public class ProjectEditController implements Serializable
         }
         return users;
     }
+    
+    /***
+     * Set project owners by passing a list of comma separated ids.
+     * @param commaSeparatedUserIds Ids in n1, n2, n3 format.
+     */
     public void setProjectOwners(String commaSeparatedUserIds) {
         if (commaSeparatedUserIds.isEmpty())
             return;

@@ -49,11 +49,8 @@ public class ProjectDetailController implements Serializable
     public boolean isOwner() {
         if(!LoginUtils.checkLogin())
             return false;
-        PUMSUser user = (PUMSUser) LoginUtils.getSession().getAttribute(
-                "currentUser"
-        );
+        PUMSUser user = LoginUtils.getUser();
         
-        System.out.println("OWNER: " + user.getEmail());
         ArrayList<PUMSUser> owners =  this.selectedProject.getProjectOwners();
        
         return owners.contains(user);

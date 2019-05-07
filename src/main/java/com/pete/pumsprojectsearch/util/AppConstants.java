@@ -14,5 +14,8 @@ package com.pete.pumsprojectsearch.util;
  * this application and it's licensed use.
 */
 public class AppConstants {
+    /***
+     * PU For the application
+     */
     public final static String PERSISTENCE_UNIT = "com.pete_PUMProjectSearch_war_1.0-SNAPSHOTPU";
 }
