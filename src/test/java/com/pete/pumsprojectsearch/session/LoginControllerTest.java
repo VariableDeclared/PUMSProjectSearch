@@ -5,7 +5,9 @@
  */
 package com.pete.pumsprojectsearch.session;
 
-import javax.ejb.embeddable.EJBContainer;
+import static com.gargoylesoftware.htmlunit.html.UnknownElementFactory.instance;
+import javax.ejb.EJB;
+import static net.bootsfaces.component.ComponentsEnum.container;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -44,12 +46,12 @@ public class LoginControllerTest {
     @Test
     public void testGetEmail() throws Exception {
         System.out.println("getEmail");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        LoginController instance = (LoginController)container.getContext().lookup("java:global/classes/LoginController");
-        String expResult = "";
+
+        LoginController instance = new LoginController();
+        String expResult = "email@email.com";
+        instance.setEmail(expResult);
         String result = instance.getEmail();
         assertEquals(expResult, result);
-        container.close();
     }
 
     /**
@@ -59,10 +61,8 @@ public class LoginControllerTest {
     public void testSetEmail() throws Exception {
         System.out.println("setEmail");
         String email = "";
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        LoginController instance = (LoginController)container.getContext().lookup("java:global/classes/LoginController");
+        LoginController instance = new LoginController();
         instance.setEmail(email);
-        container.close();
     }
 
     /**
@@ -71,12 +71,11 @@ public class LoginControllerTest {
     @Test
     public void testGetPassword() throws Exception {
         System.out.println("getPassword");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        LoginController instance = (LoginController)container.getContext().lookup("java:global/classes/LoginController");
-        String expResult = "";
+        LoginController instance = new LoginController();
+        String expResult = "gegege";
+        instance.setPassword(expResult);
         String result = instance.getPassword();
         assertEquals(expResult, result);
-        container.close();
     }
 
     /**
@@ -85,11 +84,10 @@ public class LoginControllerTest {
     @Test
     public void testSetPassword() throws Exception {
         System.out.println("setPassword");
-        String password = "";
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        LoginController instance = (LoginController)container.getContext().lookup("java:global/classes/LoginController");
+        String password = "grjgiri";
+        LoginController instance = new LoginController();
         instance.setPassword(password);
-        container.close();
+        assertEquals(instance.getPassword(), password);
     }
 
     /**
@@ -98,26 +96,22 @@ public class LoginControllerTest {
     @Test
     public void testPrepareUserCreateAccount() throws Exception {
         System.out.println("prepareUserCreateAccount");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        LoginController instance = (LoginController)container.getContext().lookup("java:global/classes/LoginController");
-        String expResult = "";
+        LoginController instance = new LoginController();
+        String expResult = "/create.xhtml";
         String result = instance.prepareUserCreateAccount();
         assertEquals(expResult, result);
-        container.close();
     }
 
-    /**
-     * Test of performLogin method, of class LoginController.
-     */
-    @Test
-    public void testPerformLogin() throws Exception {
-        System.out.println("performLogin");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        LoginController instance = (LoginController)container.getContext().lookup("java:global/classes/LoginController");
-        String expResult = "";
-        String result = instance.performLogin();
-        assertEquals(expResult, result);
-        container.close();
-    }
-    
+//    /**
+//     * Test of performLogin method, of class LoginController.
+//     */
+//    @Test
+//    public void testPerformLogin() throws Exception {
+//        System.out.println("performLogin");
+//        LoginController instance = new LoginController();
+//        String expResult = "";
+//        String result = instance.performLogin();
+//        assertEquals(expResult, result);
+//    }
+//    
 }

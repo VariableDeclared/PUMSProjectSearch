@@ -5,7 +5,9 @@
  */
 package com.pete.pumsprojectsearch.session;
 
+import com.pete.pumsprojectsearch.persistence.entities.PUMSUser;
 import com.pete.pumsprojectsearch.persistence.entities.Project;
+import com.pete.pumsprojectsearch.persistence.entities.ProjectAttribute;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -21,7 +23,17 @@ import static org.junit.Assert.*;
  */
 public class HomeControllerTest {
     
+    ArrayList<Project> projects;
     public HomeControllerTest() {
+        this.projects = new ArrayList<>();
+        this.projects.add(
+                new Project(
+                        "ProjectName",
+                        "This is a project",
+                        new ArrayList<PUMSUser>(),
+                        new ArrayList<ProjectAttribute>()
+                )
+        );
     }
     
     @BeforeClass
@@ -47,11 +59,9 @@ public class HomeControllerTest {
     public void testGetProjects() {
         System.out.println("getProjects");
         HomeController instance = new HomeController();
-        List<Project> expResult = null;
+        instance.setProjects(this.projects);
         List<Project> result = instance.getProjects();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(this.projects, result);
     }
 
     /**
@@ -60,80 +70,24 @@ public class HomeControllerTest {
     @Test
     public void testSetProjects() {
         System.out.println("setProjects");
-        List<Project> projects = null;
         HomeController instance = new HomeController();
-        instance.setProjects(projects);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setProjects(this.projects);
+        assertEquals(this.projects, instance.getProjects());
     }
 
-    /**
-     * Test of getLoggedInUser method, of class HomeController.
-     */
-    @Test
-    public void testGetLoggedInUser() {
-        System.out.println("getLoggedInUser");
-        HomeController instance = new HomeController();
-        String expResult = "";
-        String result = instance.getLoggedInUser();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    /**
+//     * Test of getLoggedInUser method, of class HomeController.
+//     */
+//    @Test
+//    public void testGetLoggedInUser() {
+//        System.out.println("getLoggedInUser");
+//        HomeController instance = new HomeController();
+//        String expResult = "";
+//        String result = instance.getLoggedInUser();
+//        assertEquals(expResult, result);
+//    }
 
-    /**
-     * Test of setLoggedInUser method, of class HomeController.
-     */
-    @Test
-    public void testSetLoggedInUser() {
-        System.out.println("setLoggedInUser");
-        String loggedInUser = "";
-        HomeController instance = new HomeController();
-        instance.setLoggedInUser(loggedInUser);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
-    /**
-     * Test of removeFavourite method, of class HomeController.
-     */
-    @Test
-    public void testRemoveFavourite() {
-        System.out.println("removeFavourite");
-        long projectId = 0L;
-        HomeController instance = new HomeController();
-        instance.removeFavourite(projectId);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getAllProjects method, of class HomeController.
-     */
-    @Test
-    public void testGetAllProjects() {
-        System.out.println("getAllProjects");
-        HomeController instance = new HomeController();
-        List<Project> expResult = null;
-        List<Project> result = instance.getAllProjects();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of insertData method, of class HomeController.
-     */
-    @Test
-    public void testInsertData() {
-        System.out.println("insertData");
-        HomeController instance = new HomeController();
-        String expResult = "";
-        String result = instance.insertData();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of prepareCreateProject method, of class HomeController.
@@ -142,54 +96,9 @@ public class HomeControllerTest {
     public void testPrepareCreateProject() {
         System.out.println("prepareCreateProject");
         HomeController instance = new HomeController();
-        String expResult = "";
+        String expResult = "projects/create.xhtml";
         String result = instance.prepareCreateProject();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of prepareProjectDetail method, of class HomeController.
-     */
-    @Test
-    public void testPrepareProjectDetail() {
-        System.out.println("prepareProjectDetail");
-        long projectId = 0L;
-        HomeController instance = new HomeController();
-        String expResult = "";
-        String result = instance.prepareProjectDetail(projectId);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getUserFaviourites method, of class HomeController.
-     */
-    @Test
-    public void testGetUserFaviourites() {
-        System.out.println("getUserFaviourites");
-        HomeController instance = new HomeController();
-        ArrayList<Project> expResult = null;
-        ArrayList<Project> result = instance.getUserFaviourites();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of prepareUserLogin method, of class HomeController.
-     */
-    @Test
-    public void testPrepareUserLogin() {
-        System.out.println("prepareUserLogin");
-        HomeController instance = new HomeController();
-        String expResult = "";
-        String result = instance.prepareUserLogin();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -199,11 +108,9 @@ public class HomeControllerTest {
     public void testPrepareProjectSearch() {
         System.out.println("prepareProjectSearch");
         HomeController instance = new HomeController();
-        String expResult = "";
+        String expResult = "/projects.xhtml";
         String result = instance.prepareProjectSearch();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

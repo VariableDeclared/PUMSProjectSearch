@@ -5,6 +5,10 @@
  */
 package com.pete.pumsprojectsearch.session;
 
+import com.pete.pumsprojectsearch.persistence.entities.PUMSUser;
+import static com.pete.pumsprojectsearch.persistence.entities.PUMSUser_.savedProjects;
+import com.pete.pumsprojectsearch.persistence.entities.Project;
+import java.util.ArrayList;
 import javax.ejb.embeddable.EJBContainer;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,8 +22,16 @@ import static org.junit.Assert.*;
  * @author Peted
  */
 public class CreateUserControllerTest {
-    
+    private PUMSUser user;
     public CreateUserControllerTest() {
+        this.user = new PUMSUser(
+                "Josh",
+                "bloogs",
+                "josh@bloggs.com",
+                "gjigergnji",
+                "geujiognegerujigenjoignjuoer",
+                new ArrayList<Project>()
+        );
     }
     
     @BeforeClass
@@ -44,14 +56,11 @@ public class CreateUserControllerTest {
     @Test
     public void testGetFirstName() throws Exception {
         System.out.println("getFirstName");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
-        String expResult = "";
+        CreateUserController instance = new CreateUserController();
+        String expResult = this.user.getFamilyName();
+        instance.setFamilyName(this.user.getFamilyName());
         String result = instance.getFirstName();
         assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -60,13 +69,10 @@ public class CreateUserControllerTest {
     @Test
     public void testSetFirstName() throws Exception {
         System.out.println("setFirstName");
-        String firstName = "";
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
+        String firstName = "Joe";
+        CreateUserController instance = new CreateUserController();
         instance.setFirstName(firstName);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getFirstName(), firstName);
     }
 
     /**
@@ -75,14 +81,11 @@ public class CreateUserControllerTest {
     @Test
     public void testGetFamilyName() throws Exception {
         System.out.println("getFamilyName");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
-        String expResult = "";
+        CreateUserController instance = new CreateUserController();
+        String expResult = this.user.getFamilyName();
+        instance.setFamilyName(expResult);
         String result = instance.getFamilyName();
         assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -91,13 +94,10 @@ public class CreateUserControllerTest {
     @Test
     public void testSetFamilyName() throws Exception {
         System.out.println("setFamilyName");
-        String familyName = "";
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
+        String familyName = this.user.getFamilyName();
+        CreateUserController instance = new CreateUserController();
         instance.setFamilyName(familyName);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getFamilyName(), familyName);
     }
 
     /**
@@ -106,14 +106,11 @@ public class CreateUserControllerTest {
     @Test
     public void testGetEmail() throws Exception {
         System.out.println("getEmail");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
-        String expResult = "";
+        CreateUserController instance = new CreateUserController();
+        String expResult = this.user.getEmail();
+        instance.setEmail(expResult);
         String result = instance.getEmail();
         assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -122,13 +119,10 @@ public class CreateUserControllerTest {
     @Test
     public void testSetEmail() throws Exception {
         System.out.println("setEmail");
-        String email = "";
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
+        String email = this.user.getEmail();
+        CreateUserController instance = new CreateUserController();
         instance.setEmail(email);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getEmail(), email);
     }
 
     /**
@@ -137,14 +131,11 @@ public class CreateUserControllerTest {
     @Test
     public void testGetPassword() throws Exception {
         System.out.println("getPassword");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
-        String expResult = "";
+        CreateUserController instance =  new CreateUserController();
+        String expResult = this.user.getPasswordHash();
+        instance.setPassword(expResult);
         String result = instance.getPassword();
         assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -153,29 +144,24 @@ public class CreateUserControllerTest {
     @Test
     public void testSetPassword() throws Exception {
         System.out.println("setPassword");
-        String password = "";
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
+        String password = this.user.getPasswordHash();
+        CreateUserController instance = new CreateUserController();
         instance.setPassword(password);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.getPassword(), password);
     }
 
     /**
      * Test of performCreateUser method, of class CreateUserController.
-     */
-    @Test
-    public void testPerformCreateUser() throws Exception {
-        System.out.println("performCreateUser");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
-        String expResult = "";
-        String result = instance.performCreateUser();
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//     */
+//    @Test
+//    public void testPerformCreateUser() throws Exception {
+//        System.out.println("performCreateUser");
+//        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
+//        CreateUserController instance = (CreateUserController)container.getContext().lookup("java:global/classes/CreateUserController");
+//        String expResult = "/projects.xhtml";
+//        String result = instance.performCreateUser();
+//        assertEquals(expResult, result);
+//        container.close();
+//    }
     
 }
