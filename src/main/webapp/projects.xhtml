@@ -9,35 +9,36 @@
         <title>Projects Homepage</title>
     </h:head>
     <h:body>
-        <h1>Welcome: #{homeController.loggedInUser}</h1>
-        <b:panel>
-            <b:label text="Favourites"/>
+        <b:container>
+            <h1>Welcome: #{homeController.loggedInUser}</h1>
+            <b:panel>
+                <b:label text="Favourites"/>
+                <b:form>
+                <ui:repeat value="#{homeController.userFaviourites}" var="project">
+                    <!--TODO: Add attribute.type -->
+                    <b:panel>
+                        <b:commandButton look="info" action="#{homeController.prepareProjectDetail(project.getId())}">#{project.projectName}</b:commandButton>
+                        <b:commandButton look="info" action="#{homeController.removeFavourite(project.getId())}">Remove from favourites</b:commandButton>
+                    </b:panel>
+                </ui:repeat>
+                </b:form>
+            </b:panel>
             <b:form>
-            <ui:repeat value="#{homeController.userFaviourites}" var="project">
-                <!--TODO: Add attribute.type -->
-                <b:panel>
-                    <b:commandButton look="info" action="#{homeController.prepareProjectDetail(project.getId())}">#{project.projectName}</b:commandButton>
-                    <b:commandButton look="info" action="#{homeController.removeFavourite(project.getId())}">Remove from favourites</b:commandButton>
-                </b:panel>
-            </ui:repeat>
-            </b:form>
-        </b:panel>
-        <b:form>
-            <b:commandButton action="#{homeController.prepareCreateProject}">Create Project</b:commandButton>
-            <b:commandButton action="#{homeController.prepareProjectDetail}">Project Detail</b:commandButton>
-            <b:commandButton action="#{homeController.insertData}" look="danger" >Insert data</b:commandButton>
-            <b:commandButton action="#{homeController.prepareUserLogin}" look="danger" >User login</b:commandButton>
-            <b:commandButton action="#{projectSearchController.prepareProjectSearch}" look="info">Search</b:commandButton>
-            
-            <b:dataTable value="#{homeController.allProjects}" var="project">
-                <b:dataTableColumn value="#{project.projectName}" />
-                <b:dataTableColumn label="View project">
-                    <b:commandButton onselect="" value="View Project" look="info" action="#{homeController.prepareProjectDetail(project.getId())}" />
-                </b:dataTableColumn>
+                <b:commandButton action="#{homeController.prepareCreateProject}">Create Project</b:commandButton>
+                <b:commandButton action="#{homeController.prepareProjectDetail}">Project Detail</b:commandButton>
+                <b:commandButton action="#{homeController.insertData}" look="danger" >Insert data</b:commandButton>
+                <b:commandButton action="#{homeController.prepareUserLogin}" look="danger" >User login</b:commandButton>
+                <b:commandButton action="#{projectSearchController.prepareProjectSearch}" look="info">Search</b:commandButton>
 
-            </b:dataTable>
-        </b:form>
-        
+                <b:dataTable value="#{homeController.allProjects}" var="project">
+                    <b:dataTableColumn value="#{project.projectName}" />
+                    <b:dataTableColumn label="View project">
+                        <b:commandButton onselect="" value="View Project" look="info" action="#{homeController.prepareProjectDetail(project.getId())}" />
+                    </b:dataTableColumn>
+
+                </b:dataTable>
+            </b:form>
+        </b:container>
        
     </h:body>
 </html>
