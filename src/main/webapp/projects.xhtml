@@ -27,6 +27,7 @@
             <b:commandButton action="#{homeController.prepareProjectDetail}">Project Detail</b:commandButton>
             <b:commandButton action="#{homeController.insertData}" look="danger" >Insert data</b:commandButton>
             <b:commandButton action="#{homeController.prepareUserLogin}" look="danger" >User login</b:commandButton>
+            <b:commandButton action="#{projectSearchController.prepareProjectSearch}" look="info">Search</b:commandButton>
             
             <b:dataTable value="#{homeController.allProjects}" var="project">
                 <b:dataTableColumn value="#{project.projectName}" />

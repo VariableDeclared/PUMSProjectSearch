@@ -5,8 +5,19 @@
  */
 package com.pete.pumsprojectsearch.session;
 
+import com.pete.pumsprojectsearch.persistence.entities.PUMSUser;
+import com.pete.pumsprojectsearch.persistence.entities.Project;
+import com.pete.pumsprojectsearch.persistence.entities.ProjectAttribute;
+import com.pete.pumsprojectsearch.util.AppConstants;
+import java.io.Serializable;
+import java.util.ArrayList;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.SessionScoped;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -17,15 +28,97 @@ import javax.enterprise.context.Dependent;
  * this application and it's licensed use.
 */
 @Named(value = "projectSearchController")
-@Dependent
-public class ProjectSearchController
+@SessionScoped
+public class ProjectSearchController implements Serializable
 {
 
+    private ArrayList<Project> projects;
+    private String searchTerm;
+    private String userNameTerm;
+    
+    
+    private transient EntityManagerFactory emFactory;
+    private transient EntityManager em;
+    private transient TypedQuery titleSearchQuery;
+    private transient Query userSearchQuery;
+
+    public String getUserNameTerm()
+    {
+        return userNameTerm;
+    }
+
+    public void setUserNameTerm(String userNameTerm)
+    {
+        this.userNameTerm = userNameTerm;
+    }
+
+    public String getSearchTerm()
+    {
+        return searchTerm;
+    }
+
+    public void setSearchTerm(String searchTerm)
+    {
+        this.searchTerm = searchTerm;
+    }
+
+    public ArrayList<Project> getProjects()
+    {
+        return projects;
+    }
+
+    
     /**
      * Creates a new instance of SearchController
      */
     public ProjectSearchController()
     {
+        this.projects = new ArrayList<Project>();
+        this.projects.add(new Project(
+                "No Results...",
+                "Could not get any results for this query",
+                new ArrayList<PUMSUser>(),
+                new ArrayList<ProjectAttribute>()
+        ));
+        this.emFactory = Persistence.createEntityManagerFactory(AppConstants.PERSISTENCE_UNIT);
+        this.em  = emFactory.createEntityManager();
+        
+        this.titleSearchQuery = this.em.createQuery(
+            "SELECT proj FROM Project proj WHERE proj.projectName LIKE CONCAT('%',:queryString,'%')",
+            Project.class
+        );
+//        this.userSearchQuery = this.em.createQuery(
+//                "SELECT p.projectName, p.projectDescription, u.firstName, u.lastName "
+//                + "FROM Project p JOIN p."
+//                + " WHERE u.familyName = :familyName"
+//        );
+    }
+    
+    
+    private String returnDefault() {
+        return "/search/search.xhtml";
+    }
+    
+    
+    public String prepareProjectSearch() {
+        return this.returnDefault();
+    }
+    
+    
+    public String performProjectUserSearch() {
+        return this.returnDefault();
+    }
+    public String performProjectSearch()
+    {
+        this.projects = new ArrayList<Project>(this.titleSearchQuery.setParameter(
+                        "queryString",
+                        this.searchTerm
+                ).getResultList()
+        );
+        
+        
+        return "/search/projects.xhtml";
+        
     }
     
 }

@@ -111,6 +111,7 @@ public class ProjectCreateControllerTest {
         System.out.println("getProjectTitle");
         ProjectCreateController instance = new ProjectCreateController();
         String expResult = this.proj.getProjectName();
+        instance.setProjectTitle(expResult);
         String result = instance.getProjectTitle();
         assertEquals(expResult, result);
     }
@@ -136,7 +137,7 @@ public class ProjectCreateControllerTest {
         System.out.println("getProjectDescription");
         ProjectCreateController instance = new ProjectCreateController();
         String expResult = this.proj.getProjectDescription();
-        instance.prepareProjectsHome(this.proj);
+        instance.setProjectDescription(expResult);
         String result = instance.getProjectDescription();
         assertEquals(expResult, result);
     }

@@ -10,7 +10,6 @@ import com.pete.pumsprojectsearch.persistence.entities.Project;
 import com.pete.pumsprojectsearch.persistence.entities.ProjectAttribute;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectAttributeFacade;
 import com.pete.pumsprojectsearch.persistence.facades.ProjectFacade;
-import com.pete.pumsprojectsearch.util.LoginUtils;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.ejb.EJB;
@@ -141,8 +140,7 @@ public class ProjectCreateController implements Serializable
         
        this.project = new Project();
     }
-    
-    
+       
     
     public String prepareProjectsHome(Project proj) {
         this.selectedProject = proj;

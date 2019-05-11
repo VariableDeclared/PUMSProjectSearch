@@ -7,6 +7,7 @@ package com.pete.pumsprojectsearch.persistence.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Project implements Serializable {
     private Long id; 
     
     @OneToMany
-    private ArrayList<ProjectHistory> projectHistory;
+    private List<ProjectHistory> projectHistory;
     
     @NotNull
     private String projectName, projectDescription;
@@ -77,8 +78,6 @@ public class Project implements Serializable {
     public void setProjectOwners(ArrayList<PUMSUser> projectOwner) {
         this.projectOwner = projectOwner;
     }
-    
-
     
 
     public String getProjectName() {
