@@ -87,11 +87,11 @@ public class ProjectSearchController implements Serializable
             "SELECT proj FROM Project proj WHERE proj.projectName LIKE CONCAT('%',:queryString,'%')",
             Project.class
         );
-//        this.userSearchQuery = this.em.createQuery(
-//                "SELECT p.projectName, p.projectDescription, u.firstName, u.lastName "
-//                + "FROM Project p JOIN p."
-//                + " WHERE u.familyName = :familyName"
-//        );
+
+        this.userSearchQuery = this.em.createQuery(
+                "SELECT DISTINCT p FROM Project p JOIN p.projectOwner u "
+                    + "WHERE u.familyName LIKE CONCAT('%', :queryName, '%')"
+        );
     }
     
     
@@ -99,6 +99,9 @@ public class ProjectSearchController implements Serializable
         return "/search/search.xhtml";
     }
     
+    private String returnResults() {
+        return "/search/projects.xhtml";
+    }
     
     public String prepareProjectSearch() {
         return this.returnDefault();
@@ -106,7 +109,12 @@ public class ProjectSearchController implements Serializable
     
     
     public String performProjectUserSearch() {
-        return this.returnDefault();
+        this.projects = new ArrayList<Project>(
+                this.userSearchQuery.setParameter("queryName", this.userNameTerm)
+                .getResultList()
+        );
+        
+        return this.returnResults();
     }
     public String performProjectSearch()
     {
@@ -117,7 +125,7 @@ public class ProjectSearchController implements Serializable
         );
         
         
-        return "/search/projects.xhtml";
+        return this.returnResults();
         
     }
     
